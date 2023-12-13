@@ -14,7 +14,8 @@ SRC				=	main.c \
 					errors.c \
 					utils.c \
 					init.c \
-					execution.c
+					execution.c \
+					tasks.c
 
 OBJ				=	$(SRC:.c=.o)
 

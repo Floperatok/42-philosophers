@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 17:56:46 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/13 21:24:11 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/13 21:49:01 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,24 +51,11 @@ static void	*routine(void *arg)
 		left_fork = philo->data->number_of_philo - 1;
 	while (philo->data->is_running)
 	{
-		pthread_mutex_lock(&(philo->data->forks[left_fork]));
-		printf("%lld %d has taken a fork\n", get_time_since(philo->data->start_time), \
-				philo->id);
-		pthread_mutex_lock(&(philo->data->forks[right_fork]));
-		printf("%lld %d has taken a fork\n", get_time_since(philo->data->start_time), \
-				philo->id);
-		printf("%lld %d is eating\n", get_time_since(philo->data->start_time), \
-				philo->id);
-		philo->eaten++;
-		philo->time_last_meal = get_time();
-		ft_wait(philo->data->time_to_eat, &(philo->data->is_running));
-		pthread_mutex_unlock(&(philo->data->forks[left_fork]));
-		pthread_mutex_unlock(&(philo->data->forks[right_fork]));
-		printf("%lld %d is sleeping\n", get_time_since(philo->data->start_time), \
-				philo->id);
-		usleep(philo->data->time_to_sleep * 1000);
-		printf("%lld %d is thinking\n", get_time_since(philo->data->start_time), \
-				philo->id);
+		ft_take_fork(philo, left_fork);
+		ft_take_fork(philo, right_fork);
+		ft_eat(philo, left_fork, right_fork);
+		ft_sleep(philo);
+		ft_think(philo);
 	}
 	printf("\033[31m[exit thread %d]\033[m\n", philo->id); // delete
 	pthread_exit(NULL);
