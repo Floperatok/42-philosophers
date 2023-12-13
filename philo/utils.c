@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 01:35:59 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/12 16:43:26 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/13 18:41:09 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,15 @@ int	ft_atoi(const char *nptr)
 		i++;
 	}
 	return (result * sign);
+}
+
+void	ft_wait(long long time, int *is_running)
+{
+	long long	start_time;
+
+	start_time = get_time();
+	while (*is_running && get_time_since(start_time) < time)
+		usleep(10);
 }
 
 long long	get_time(void)

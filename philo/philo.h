@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:50:11 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/12 17:01:39 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/13 21:07:53 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				times_must_eat;
-	pthread_mutex_t	*forks;
+	int				is_running;
 	long long int	start_time;
+	pthread_mutex_t	*forks;
 }		t_data;
 
 typedef struct s_philo
@@ -50,6 +51,8 @@ void		destroy_mutexes(t_data *data);
 char		*ft_strchr(const char *s, int c);
 void		ft_putstr_fd(char *s, int fd);
 int			ft_atoi(const char *nptr);
+
+void		ft_wait(long long time, int *is_running);
 long long	get_time(void);
 long long	get_time_since(long long start_time);
 
