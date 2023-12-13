@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 01:35:59 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/13 18:41:09 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/13 21:24:51 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,9 @@ void	ft_wait(long long time, int *is_running)
 		usleep(10);
 }
 
+/*
+ *	Returns posix time converted in ms.
+*/
 long long	get_time(void)
 {
 	struct timeval	time;
@@ -128,6 +131,9 @@ long long	get_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
+/*
+ *	Takes posix time in ms and returns (still in ms) the time that passed since
+*/
 long long	get_time_since(long long time)
 {
 	struct timeval	time_now;

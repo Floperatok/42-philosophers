@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 17:56:46 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/13 21:02:53 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/13 21:24:11 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	*routine(void *arg)
 				philo->id);
 		philo->eaten++;
 		philo->time_last_meal = get_time();
-		ft_wait(philo->data->time_to_eat * 1000, &(philo->data->is_running));
+		ft_wait(philo->data->time_to_eat, &(philo->data->is_running));
 		pthread_mutex_unlock(&(philo->data->forks[left_fork]));
 		pthread_mutex_unlock(&(philo->data->forks[right_fork]));
 		printf("%lld %d is sleeping\n", get_time_since(philo->data->start_time), \
