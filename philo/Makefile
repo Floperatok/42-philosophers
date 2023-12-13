@@ -11,7 +11,7 @@ NAME			=	philo
 ####################################################################
 
 SRC				=	main.c \
-					error.c \
+					errors.c \
 					utils.c \
 					init.c \
 					execution.c
