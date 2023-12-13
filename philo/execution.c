@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 17:56:46 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/13 21:49:01 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/13 22:56:06 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int launch_threads(t_data *data)
 	}
 	wait_the_end(philos, data);
 	data->is_running = 0;
-	while (--i)
+	while (--i >= 0)
 	{
 		if (pthread_join(philos[i].thread, NULL))
 		{
@@ -94,5 +94,6 @@ int launch_threads(t_data *data)
 			return (1);
 		}
 	}
-	return (1);
+	free(philos);
+	return (0);
 }

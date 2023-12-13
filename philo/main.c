@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:13:44 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/11 22:15:22 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/13 22:55:58 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int main(int ac, char **av)
 	if (launch_threads(data))
 		return_value = 1;
 	destroy_mutexes(data);
+	free(data->forks);
 	free(data);
 	return (return_value);
 }
