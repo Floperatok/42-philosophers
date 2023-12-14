@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 01:35:59 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/14 00:09:04 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/14 18:04:54 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	destroy_mutexes(t_data *data)
 {
 	while (--data->number_of_philo >= 0)
 		pthread_mutex_destroy(&(data->forks[data->number_of_philo]));
+	pthread_mutex_destroy(&(data->is_running_mutex));
+	pthread_mutex_destroy(&(data->start_time_mutex));
 }
 
 /*
