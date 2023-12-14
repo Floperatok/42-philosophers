@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 17:56:46 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/14 19:15:02 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/14 21:06:34 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,11 @@ static int	end_threads(t_philo *philos, int number_of_philos)
 	return (0);
 }
 
-static void	stop_running(t_data *data, t_philo *philo)
+static void	philos_eat_enough(t_data *data)
 {
 	pthread_mutex_lock(&(data->is_running_mutex));
 	data->is_running = 0;
 	pthread_mutex_unlock(&(data->is_running_mutex));
-	usleep(100);
-	pthread_mutex_lock(&(philo->data->start_time_mutex));
-	printf("%lld\t%d %s\n", get_time_since(philo->data->start_time), \
-			philo->id, "died");
-	pthread_mutex_unlock(&(philo->data->start_time_mutex));
-	pthread_mutex_unlock(&(philo->time_last_meal_mutex));
 }
 
 static void	wait_the_end(t_philo *philos, t_data *data)
@@ -62,11 +56,14 @@ static void	wait_the_end(t_philo *philos, t_data *data)
 			pthread_mutex_unlock(&(philos[i].eaten_mutex));
 			pthread_mutex_lock(&(philos[i].time_last_meal_mutex));
 			if (get_time_since(philos[i].time_last_meal) > data->time_to_die)
-				return (stop_running(data, &(philos[i])));
+				return (ft_died(data, &(philos[i])));
 			pthread_mutex_unlock(&(philos[i].time_last_meal_mutex));
 		}
 		if (all_eat_enough && data->times_must_eat != -1)
+		{
+			philos_eat_enough(data);
 			return ;
+		}
 	}
 }
 
@@ -78,7 +75,7 @@ static void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
-		usleep(30000);
+		usleep(philo->data->time_to_eat * 1000);
 	left_fork = philo->id - 1 - 1;
 	right_fork = philo->id - 1;
 	if (left_fork < 0)
@@ -88,7 +85,7 @@ static void	*routine(void *arg)
 		ft_take_forks(philo, left_fork, right_fork);
 		ft_eat(philo);
 		ft_sleep(philo, left_fork, right_fork);
-		ft_think(philo);
+		print_status("is thinking", philo);
 		pthread_mutex_lock(&(philo->data->is_running_mutex));
 		if (!philo->data->is_running)
 			break ;

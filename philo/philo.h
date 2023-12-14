@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:50:11 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/14 19:10:09 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/14 19:40:39 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void		print_status(char *status, t_philo *philo);
 void		ft_take_forks(t_philo *philo, int left_fork, int right_fork);
 void		ft_eat(t_philo *philo);
 void		ft_sleep(t_philo *philo, int left_fork_id, int right_fork_id);
-void		ft_think(t_philo *philo);
+void		ft_died(t_data *data, t_philo *philo);
 
 int			launch_threads(t_data *data);
 void		init_mutexes(t_data *data);

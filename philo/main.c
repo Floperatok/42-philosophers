@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:13:44 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/14 18:26:37 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/14 20:27:13 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ int	main(int ac, char **av)
 	if (!data)
 		return (1);
 	get_infos(data, ac, av);
+	if (data->times_must_eat == 0)
+	{
+		free(data);
+		return (1);
+	}
 	init_mutexes(data);
 	if (data->number_of_philo == 1)
 		one_philo(data);

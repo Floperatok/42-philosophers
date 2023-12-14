@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:35:06 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/14 19:32:46 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/14 20:55:02 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	ft_take_forks(t_philo *philo, int left_fork, int right_fork)
 		pthread_mutex_lock(&(philo->data->forks[right_fork]));
 		print_status("has taken a fork", philo);
 	}
-	print_status("has taken a fork", philo);
 }
 
 void	ft_eat(t_philo *philo)
@@ -66,7 +65,15 @@ void	ft_sleep(t_philo *philo, int left_fork_id, int right_fork_id)
 			&(philo->data->is_running_mutex));
 }
 
-void	ft_think(t_philo *philo)
+void	ft_died(t_data *data, t_philo *philo)
 {
-	print_status("is thinking", philo);
+	pthread_mutex_lock(&(data->is_running_mutex));
+	data->is_running = 0;
+	pthread_mutex_unlock(&(data->is_running_mutex));
+	usleep(100);
+	pthread_mutex_lock(&(philo->data->start_time_mutex));
+	printf("%lld\t%d %s\n", get_time_since(philo->data->start_time), \
+			philo->id, "died");
+	pthread_mutex_unlock(&(philo->data->start_time_mutex));
+	pthread_mutex_unlock(&(philo->time_last_meal_mutex));
 }
