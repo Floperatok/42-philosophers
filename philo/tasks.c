@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:35:06 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/14 19:08:04 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/14 19:32:46 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,22 @@ void	print_status(char *status, t_philo *philo)
 	pthread_mutex_unlock(&(philo->data->is_running_mutex));
 }
 
-void	ft_take_fork(t_philo *philo, int fork_id)
+void	ft_take_forks(t_philo *philo, int left_fork, int right_fork)
 {
-	pthread_mutex_lock(&(philo->data->forks[fork_id]));
+	if (philo->id % 2 == 1)
+	{
+		pthread_mutex_lock(&(philo->data->forks[right_fork]));
+		print_status("has taken a fork", philo);
+		pthread_mutex_lock(&(philo->data->forks[left_fork]));
+		print_status("has taken a fork", philo);
+	}
+	else
+	{
+		pthread_mutex_lock(&(philo->data->forks[left_fork]));
+		print_status("has taken a fork", philo);
+		pthread_mutex_lock(&(philo->data->forks[right_fork]));
+		print_status("has taken a fork", philo);
+	}
 	print_status("has taken a fork", philo);
 }
 

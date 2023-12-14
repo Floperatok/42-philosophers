@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:50:11 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/14 19:08:19 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/14 19:10:09 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_philo
 }		t_philo;
 
 void		print_status(char *status, t_philo *philo);
-void		ft_take_fork(t_philo *philo, int fork_id);
+void		ft_take_forks(t_philo *philo, int left_fork, int right_fork);
 void		ft_eat(t_philo *philo);
 void		ft_sleep(t_philo *philo, int left_fork_id, int right_fork_id);
 void		ft_think(t_philo *philo);

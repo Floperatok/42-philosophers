@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 17:56:46 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/14 19:08:12 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/14 19:15:02 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ static void	stop_running(t_data *data, t_philo *philo)
 	data->is_running = 0;
 	pthread_mutex_unlock(&(data->is_running_mutex));
 	usleep(100);
-	print_status("died", philo);
+	pthread_mutex_lock(&(philo->data->start_time_mutex));
+	printf("%lld\t%d %s\n", get_time_since(philo->data->start_time), \
+			philo->id, "died");
+	pthread_mutex_unlock(&(philo->data->start_time_mutex));
 	pthread_mutex_unlock(&(philo->time_last_meal_mutex));
 }
 
@@ -82,8 +85,7 @@ static void	*routine(void *arg)
 		left_fork = philo->data->number_of_philo - 1;
 	while (1)
 	{
-		ft_take_fork(philo, left_fork);
-		ft_take_fork(philo, right_fork);
+		ft_take_forks(philo, left_fork, right_fork);
 		ft_eat(philo);
 		ft_sleep(philo, left_fork, right_fork);
 		ft_think(philo);
