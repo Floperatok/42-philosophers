@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:50:11 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/13 21:48:50 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/14 00:21:58 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_data
 	int				is_running;
 	long long int	start_time;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	start_time_mutex;
+	pthread_mutex_t is_running_mutex;
 }		t_data;
 
 typedef struct s_philo
@@ -38,12 +40,14 @@ typedef struct s_philo
 	int				id;
 	int				eaten;
 	long long int	time_last_meal;
+	pthread_mutex_t	eaten_mutex;
+	pthread_mutex_t time_last_meal_mutex;
 	t_data			*data;
 }		t_philo;
 
 void		ft_take_fork(t_philo *philo, int fork_id);
-void		ft_eat(t_philo *philo, int left_fork_id, int right_fork_id);
-void		ft_sleep(t_philo *philo);
+void		ft_eat(t_philo *philo);
+void		ft_sleep(t_philo *philo, int left_fork_id, int right_fork_id);
 void		ft_think(t_philo *philo);
 
 int			launch_threads(t_data *data);
@@ -56,7 +60,7 @@ char		*ft_strchr(const char *s, int c);
 void		ft_putstr_fd(char *s, int fd);
 int			ft_atoi(const char *nptr);
 
-void		ft_wait(long long time, int *is_running);
+void		ft_wait(long long time, int *is_running, pthread_mutex_t *mutex);
 long long	get_time(void);
 long long	get_time_since(long long start_time);
 

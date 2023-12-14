@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:39:40 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/11 22:14:01 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/14 18:01:28 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,13 @@ int	init_mutexes(t_data *data)
 {
 	int	i;
 
-	i = -1;
+	pthread_mutex_init(&(data->start_time_mutex), NULL);
+	pthread_mutex_init(&(data->is_running_mutex), NULL);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->number_of_philo);
 	if (!data->forks)
 		return (0);
+	i = -1;
 	while (++i < data->number_of_philo)
-	{
-		if (pthread_mutex_init(&(data->forks[i]), NULL))
-		{
-			ft_putstr_fd("Error: One mutex for the forks failed\n", 2);
-			while (--i >= 0)
-				pthread_mutex_destroy(&(data->forks[i]));
-			free(data->forks);
-			return (1);
-		}
-	}
+		pthread_mutex_init(&(data->forks[i]), NULL);
 	return (0);
 }

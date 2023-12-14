@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 01:35:59 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/13 22:55:34 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/14 00:09:04 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +111,22 @@ int	ft_atoi(const char *nptr)
 	return (result * sign);
 }
 
-void	ft_wait(long long time, int *is_running)
+void	ft_wait(long long time, int *is_running, pthread_mutex_t *mutex)
 {
 	long long	start_time;
 
 	start_time = get_time();
-	while (*is_running && get_time_since(start_time) < time)
+	while (get_time_since(start_time) < time)
+	{
+		pthread_mutex_lock(mutex);
+		if (!*is_running)
+		{
+			pthread_mutex_unlock(mutex);
+			break ;
+		}
+		pthread_mutex_unlock(mutex);
 		usleep(10);
+	}
 }
 
 /*

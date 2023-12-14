@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 17:56:46 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/13 22:56:06 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/14 17:57:25 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,24 @@ static void	wait_the_end(t_philo *philos, t_data *data)
 		i = -1;
 		while (++i < data->number_of_philo)
 		{
+			pthread_mutex_lock(&(philos[i].eaten_mutex));
 			if (data->times_must_eat != -1 && \
 				philos[i].eaten < data->times_must_eat)
 				all_eat_enough = 0;
+			pthread_mutex_unlock(&(philos[i].eaten_mutex));
+			pthread_mutex_lock(&(philos[i].time_last_meal_mutex));
 			if (get_time_since(philos[i].time_last_meal) > data->time_to_die)
 			{
-				printf("%lld %d died \n", get_time_since(data->start_time), \
+				pthread_mutex_lock(&(data->start_time_mutex));
+				printf("%lld\t%d died \n", get_time_since(data->start_time), \
 					i + 1);
+				pthread_mutex_unlock(&(data->start_time_mutex));
+				{
+					pthread_mutex_unlock(&(philos[i].time_last_meal_mutex));
 					return ;
+				}
 			}
+			pthread_mutex_unlock(&(philos[i].time_last_meal_mutex));
 		}
 		if (all_eat_enough && data->times_must_eat != -1)
 			return ;
@@ -45,19 +54,25 @@ static void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->id % 2 == 0)
+		usleep(30000);
 	left_fork = philo->id - 1 - 1;
 	right_fork = philo->id - 1;
 	if (left_fork < 0)
 		left_fork = philo->data->number_of_philo - 1;
-	while (philo->data->is_running)
+	while (1)
 	{
 		ft_take_fork(philo, left_fork);
 		ft_take_fork(philo, right_fork);
-		ft_eat(philo, left_fork, right_fork);
-		ft_sleep(philo);
+		ft_eat(philo);
+		ft_sleep(philo, left_fork, right_fork);
 		ft_think(philo);
+		pthread_mutex_lock(&(philo->data->is_running_mutex));
+		if (!philo->data->is_running)
+			break ;
+		pthread_mutex_unlock(&(philo->data->is_running_mutex));
 	}
-	printf("\033[31m[exit thread %d]\033[m\n", philo->id); // delete
+	pthread_mutex_unlock(&(philo->data->is_running_mutex));
 	pthread_exit(NULL);
 }
 
@@ -77,6 +92,8 @@ int launch_threads(t_data *data)
 		philos[i].id = i + 1;
 		philos[i].eaten = 0;
 		philos[i].time_last_meal = get_time();
+		pthread_mutex_init(&(philos[i].eaten_mutex), NULL);
+		pthread_mutex_init(&(philos[i].time_last_meal_mutex), NULL);
 		if (pthread_create(&(philos[i].thread), NULL, &routine, &(philos[i])))
 		{
 			ft_putstr_fd("Error: Creating thread failed\n.", 2);
@@ -85,7 +102,9 @@ int launch_threads(t_data *data)
 		usleep(20);
 	}
 	wait_the_end(philos, data);
+	pthread_mutex_lock(&(data->is_running_mutex));
 	data->is_running = 0;
+	pthread_mutex_unlock(&(data->is_running_mutex));
 	while (--i >= 0)
 	{
 		if (pthread_join(philos[i].thread, NULL))
@@ -93,6 +112,8 @@ int launch_threads(t_data *data)
 			ft_putstr_fd("Error: Waiting for thread end failed\n.", 2);
 			return (1);
 		}
+		pthread_mutex_destroy(&(philos[i].eaten_mutex));
+		pthread_mutex_destroy(&(philos[i].time_last_meal_mutex));
 	}
 	free(philos);
 	return (0);
