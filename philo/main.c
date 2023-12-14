@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:13:44 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/14 18:17:36 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/14 18:26:37 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*one_philo_thread(void *arg)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = (t_data *)arg;
 	pthread_mutex_lock(&(data->forks[0]));
@@ -41,7 +41,7 @@ void	one_philo(t_data *data)
 	}
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_data	*data;
 	int		return_value;
@@ -53,11 +53,7 @@ int main(int ac, char **av)
 	if (!data)
 		return (1);
 	get_infos(data, ac, av);
-	if (init_mutexes(data))
-	{
-		free(data);
-		return (1);
-	}
+	init_mutexes(data);
 	if (data->number_of_philo == 1)
 		one_philo(data);
 	else if (launch_threads(data))

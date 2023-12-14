@@ -15,7 +15,8 @@ SRC				=	main.c \
 					utils.c \
 					init.c \
 					execution.c \
-					tasks.c
+					tasks.c \
+					time.c
 
 OBJ				=	$(SRC:.c=.o)
 

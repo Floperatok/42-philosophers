@@ -6,13 +6,13 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:35:06 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/14 17:02:52 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/14 19:08:04 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	print_status(char *status, t_philo *philo)
+void	print_status(char *status, t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->data->is_running_mutex));
 	if (philo->data->is_running)
@@ -57,4 +57,3 @@ void	ft_think(t_philo *philo)
 {
 	print_status("is thinking", philo);
 }
-

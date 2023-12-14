@@ -6,19 +6,19 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:50:11 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/14 00:21:58 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/14 19:08:19 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <stdlib.h>
-#include <pthread.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/time.h>
+# include <stdlib.h>
+# include <pthread.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <string.h>
+# include <sys/time.h>
 
 typedef struct s_data
 {
@@ -31,7 +31,7 @@ typedef struct s_data
 	long long int	start_time;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	start_time_mutex;
-	pthread_mutex_t is_running_mutex;
+	pthread_mutex_t	is_running_mutex;
 }		t_data;
 
 typedef struct s_philo
@@ -41,17 +41,19 @@ typedef struct s_philo
 	int				eaten;
 	long long int	time_last_meal;
 	pthread_mutex_t	eaten_mutex;
-	pthread_mutex_t time_last_meal_mutex;
+	pthread_mutex_t	time_last_meal_mutex;
 	t_data			*data;
 }		t_philo;
 
+void		print_status(char *status, t_philo *philo);
 void		ft_take_fork(t_philo *philo, int fork_id);
 void		ft_eat(t_philo *philo);
 void		ft_sleep(t_philo *philo, int left_fork_id, int right_fork_id);
 void		ft_think(t_philo *philo);
 
 int			launch_threads(t_data *data);
-int			init_mutexes(t_data *data);
+void		init_mutexes(t_data *data);
+void		init_philo(t_philo *philo, int id, t_data *data);
 void		get_infos(t_data *data, int ac, char **av);
 int			check_errors(int ac, char **av);
 
