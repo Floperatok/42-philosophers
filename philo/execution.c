@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 17:56:46 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/14 21:06:34 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/14 21:50:35 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static void	*routine(void *arg)
 		pthread_mutex_unlock(&(philo->data->is_running_mutex));
 	}
 	pthread_mutex_unlock(&(philo->data->is_running_mutex));
-	pthread_exit(NULL);
+	return (NULL);
 }
 
 int	launch_threads(t_data *data)
