@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:13:44 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/14 20:27:13 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/16 00:37:14 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	init_mutexes(data);
-	if (data->number_of_philo == 1)
+	if (data->number_of_philo == 0)
+		return (destroy_mutexes(data), free(data), 0);
+	else if (data->number_of_philo == 1)
 		one_philo(data);
 	else if (launch_threads(data))
 		return_value = 1;
 	destroy_mutexes(data);
-	free(data->forks);
-	free(data);
-	return (return_value);
+	return (free(data), return_value);
 }
