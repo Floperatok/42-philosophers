@@ -40,17 +40,17 @@ $(OBJ_PATH)%.o:	%.c
 $(NAME):	$(OBJS)
 	@echo -n "$(COM_COLOR)compiling $(NAME)...     $(NO_COLOR)"
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-	@echo "$(COM_COLOR)done: $(OK_COLOR)[✓]$(NO_COLOR)"
+	@echo "$(COM_COLOR)done  $(OK_COLOR)[✓]$(NO_COLOR)"
 
 
 clean:
 	@rm -rf $(OBJ_PATH)
-	@echo "$(COM_COLOR)clean:                       $(OK_COLOR)[✓]$(NO_COLOR)"
+	@echo "$(COM_COLOR)clean                        $(OK_COLOR)[✓]$(NO_COLOR)"
 
 fclean:
 	@rm -rf $(OBJ_PATH)
 	@rm -f $(NAME)
-	@echo "$(COM_COLOR)fclean:                      $(OK_COLOR)[✓]$(NO_COLOR)"
+	@echo "$(COM_COLOR)fclean                       $(OK_COLOR)[✓]$(NO_COLOR)"
 
 re: fclean all
 
