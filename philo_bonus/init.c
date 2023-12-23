@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:39:40 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/20 18:26:54 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/24 00:43:31 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ void	init_data(t_data *data, int ac, char **av)
 	sem_unlink("overall_running");
 	data->overall_running = sem_open("overall_running", O_CREAT, \
 							S_IRUSR | S_IWUSR, 0);
+	sem_unlink("ate_enough");
+	data->ate_enough = sem_open("ate_enough", O_CREAT, \
+							S_IRUSR | S_IWUSR, 0);
 	data->start_time = time.tv_sec * 1000 + time.tv_usec / 1000;
 }
 
@@ -41,6 +44,4 @@ void	init_philo(t_philo *philo, int id, t_data *data)
 	philo->eaten = 0;
 	philo->time_last_meal = get_time();
 	philo->is_running = 1;
-	sem_unlink("eating");
-	philo->eating = sem_open("eating", O_CREAT, S_IRUSR | S_IWUSR, 1);
 }

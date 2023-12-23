@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:50:11 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/20 18:26:07 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/24 00:45:49 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_data
 	int				times_must_eat;
 	long long int	start_time;
 	sem_t			*overall_running;
+	sem_t			*ate_enough;
 	sem_t			*forks;
 }		t_data;
 
@@ -43,7 +44,6 @@ typedef struct s_philo
 	int				eaten;
 	long long int	time_last_meal;
 	int				is_running;
-	sem_t			*eating;
 	t_data			*data;
 }		t_philo;
 
@@ -56,6 +56,10 @@ int			launch_processes(t_data *data);
 void		init_philo(t_philo *philo, int id, t_data *data);
 void		init_data(t_data *data, int ac, char **av);
 int			check_errors(int ac, char **av);
+
+void		*check_hunger(void *arg);
+void		*check_others(void *arg);
+void		*check_ate_enough(void *arg);
 
 char		*ft_strchr(const char *s, int c);
 void		ft_putstr_fd(char *s, int fd);
