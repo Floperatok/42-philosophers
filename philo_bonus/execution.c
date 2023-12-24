@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 17:56:46 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/24 00:23:43 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/24 08:35:00 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,11 @@ int	launch_processes(t_data *data)
 	while (--i >= 0)
 		waitpid(pids[i], NULL, 0);
 	if (data->times_must_eat != -1)
+	{
+		while (++i < data->number_of_philo	)
+			sem_post(data->ate_enough);
 		pthread_join(ate_enough, NULL);
+	}
 	free(pids);
 	sem_close(data->forks);
 	sem_unlink("forks");

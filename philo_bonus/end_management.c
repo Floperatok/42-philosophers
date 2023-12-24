@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 16:39:32 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/24 00:35:22 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/24 08:35:05 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	*check_ate_enough(void *arg)
 		sem_wait(data->ate_enough);
 		counter++;
 	}
-	printf("EEEEEEEEEEEND\ncounter = %d\n", counter);
 	sem_post(data->overall_running);
 	return (NULL);
 }
