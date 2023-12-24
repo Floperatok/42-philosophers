@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:50:11 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/24 00:45:49 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/24 01:21:55 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void		ft_sleep(t_philo *philo);
 int			launch_processes(t_data *data);
 void		init_philo(t_philo *philo, int id, t_data *data);
 void		init_data(t_data *data, int ac, char **av);
+void		free_data(t_data *data);
+void		free_philo(t_philo *philo);
 int			check_errors(int ac, char **av);
 
 void		*check_hunger(void *arg);

@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 17:56:46 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/24 08:35:00 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/24 17:00:11 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	routine(t_philo	*philo)
 	}
 	pthread_join(hunger, NULL); // check error
 	pthread_join(others, NULL); // check error
+	free_data(philo->data);
 	free(philo);
 	exit(EXIT_SUCCESS);
 }
@@ -75,8 +76,8 @@ int	launch_processes(t_data *data)
 	free(pids);
 	sem_close(data->forks);
 	sem_unlink("forks");
-	// sem_close(data->overall_running);
-	// sem_unlink("overall_running");
+	sem_close(data->overall_running);
+	sem_unlink("overall_running");
 	sem_close(data->ate_enough);
 	sem_unlink("ate_enough");
 	return (0);

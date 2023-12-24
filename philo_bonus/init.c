@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:39:40 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/24 00:43:31 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/24 01:23:37 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,17 @@ void	init_philo(t_philo *philo, int id, t_data *data)
 	philo->eaten = 0;
 	philo->time_last_meal = get_time();
 	philo->is_running = 1;
+}
+
+void	free_data(t_data *data)
+{
+	sem_close(data->overall_running);
+	sem_close(data->ate_enough);
+	sem_close(data->forks);
+	free(data);
+}
+
+void	free_philo(t_philo *philo)
+{
+	free(philo);
 }
