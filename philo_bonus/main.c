@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:13:44 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/21 11:33:15 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/26 19:14:43 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	one_philo_process(t_data *data)
 	printf("0\t1 has taken a fork\n");
 	usleep(data->time_to_die * 1000);
 	printf("%lld\t1 died\n", get_time_since(data->start_time));
+	close_semaphores(data);
+	free(data);
 	exit(EXIT_SUCCESS);
 }
 
@@ -32,6 +34,8 @@ void	one_philo(t_data *data) // not working
 	}
 	if (pid == 0)
 		one_philo_process(data);
+	waitpid(pid, NULL, 0);
+	close_semaphores(data);
 }
 
 int	main(int ac, char **av)
