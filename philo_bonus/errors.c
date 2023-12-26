@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 01:55:04 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/11 21:54:34 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/26 15:42:00 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ int	check_errors(int ac, char **av)
 
 	if (ac != 5 && ac != 6)
 	{
-		printf("usage: ./philo [number_of_philosophers] [time_to_die]\
- [time_to_eat] [time_to_sleep] [number_of_times_each_philosopher_must_eat]\n\
-last argument is obtional and is set by default to infinity.\n");
+		printf("usage: ./philo number_of_philosophers time_to_die\
+ time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]\n");
 		return (1);
 	}
 	i = 0;
