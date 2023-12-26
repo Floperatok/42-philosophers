@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:23:01 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/25 11:51:40 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/26 19:48:32 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ long long	get_time_since(long long time)
 	long long		time_ms;
 
 	gettimeofday(&time_now, NULL);
-	write(1, "", 0);
 	time_ms = time_now.tv_sec * 1000 + time_now.tv_usec / 1000;
 	return (time_ms - time);
 }

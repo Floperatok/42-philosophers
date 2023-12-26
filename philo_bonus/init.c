@@ -6,25 +6,14 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:39:40 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/24 19:09:15 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/26 15:22:28 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_data(t_data *data, int ac, char **av)
+void	init_semaphores(t_data *data)
 {
-	struct timeval	time;
-
-	data->number_of_philo = ft_atoi(av[1]);
-	data->time_to_die = ft_atoi(av[2]);
-	data->time_to_eat = ft_atoi(av[3]);
-	data->time_to_sleep = ft_atoi(av[4]);
-	if (ac == 6)
-		data->times_must_eat = ft_atoi(av[5]);
-	else
-		data->times_must_eat = -1;
-	gettimeofday(&time, NULL);
 	sem_unlink("forks");
 	sem_unlink("ate_enough");
 	sem_unlink("overall_running");
@@ -43,6 +32,22 @@ void	init_data(t_data *data, int ac, char **av)
 							S_IRUSR | S_IWUSR, 1);
 	data->is_printing = sem_open("is_printing", O_CREAT, \
 							S_IRUSR | S_IWUSR, 1);
+}
+
+void	init_data(t_data *data, int ac, char **av)
+{
+	struct timeval	time;
+
+	data->number_of_philo = ft_atoi(av[1]);
+	data->time_to_die = ft_atoi(av[2]);
+	data->time_to_eat = ft_atoi(av[3]);
+	data->time_to_sleep = ft_atoi(av[4]);
+	if (ac == 6)
+		data->times_must_eat = ft_atoi(av[5]);
+	else
+		data->times_must_eat = -1;
+	gettimeofday(&time, NULL);
+	init_semaphores(data);
 	data->start_time = time.tv_sec * 1000 + time.tv_usec / 1000;
 }
 

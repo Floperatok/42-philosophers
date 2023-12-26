@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:13:44 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/26 19:14:43 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/26 19:49:37 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	one_philo_process(t_data *data)
 	exit(EXIT_SUCCESS);
 }
 
-void	one_philo(t_data *data) // not working
+void	one_philo(t_data *data)
 {
 	int	pid;
 
@@ -30,7 +30,7 @@ void	one_philo(t_data *data) // not working
 	if (pid == -1)
 	{
 		ft_putstr_fd("Error: Creating fork failed\n.", 2);
-		return ;	
+		return ;
 	}
 	if (pid == 0)
 		one_philo_process(data);
