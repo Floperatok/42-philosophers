@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 17:56:46 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/14 21:50:35 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/22 15:59:43 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
-		usleep(philo->data->time_to_eat * 1000);
+		usleep(philo->data->time_to_eat * 500);
 	left_fork = philo->id - 1 - 1;
 	right_fork = philo->id - 1;
 	if (left_fork < 0)
@@ -90,6 +90,7 @@ static void	*routine(void *arg)
 		if (!philo->data->is_running)
 			break ;
 		pthread_mutex_unlock(&(philo->data->is_running_mutex));
+		usleep(50);
 	}
 	pthread_mutex_unlock(&(philo->data->is_running_mutex));
 	return (NULL);
