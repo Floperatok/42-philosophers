@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 16:39:32 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/24 08:35:05 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/25 11:35:07 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,25 @@ void	*check_hunger(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (philo->is_running)
+	while (1)
 	{
-
+		sem_wait(philo->data->is_running_sem);
+		if (!philo->is_running)
+			break ;
+		sem_post(philo->data->is_running_sem);
+		sem_wait(philo->data->is_eating);
 		if (get_time_since(philo->time_last_meal) > philo->data->time_to_die)
 		{
+			sem_post(philo->data->is_eating);
 			philo->is_running = 0;
 			sem_post(philo->data->overall_running);
 			usleep(100);
-			printf("%lld\t%d %s\n", get_time_since(philo->data->start_time), \
-				philo->id, "died");
+			print_status("died", philo);
 			return (NULL);
 		}
+		sem_post(philo->data->is_eating);
 	}
+	sem_post(philo->data->is_running_sem);
 	return (NULL);
 }
 
@@ -39,7 +45,9 @@ void	*check_others(void *arg)
 
 	philo = (t_philo *)arg;
 	sem_wait(philo->data->overall_running);
+	sem_wait(philo->data->is_running_sem);
 	philo->is_running = 0;
+	sem_post(philo->data->is_running_sem);
 	sem_post(philo->data->overall_running);
 	return (NULL);
 }

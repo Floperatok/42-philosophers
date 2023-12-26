@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 17:56:46 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/24 17:00:11 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/25 11:45:43 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,23 @@ static void	routine(t_philo	*philo)
 	pthread_create(&others, NULL, &check_others, philo); // check error
 	if (philo->id % 2 == 0)
 		usleep(philo->data->time_to_eat * 500);
-	while (philo->is_running)
+	while (1)
 	{
+		sem_wait(philo->data->is_running_sem);
+		if (!philo->is_running)
+			break ;
+		sem_post(philo->data->is_running_sem);
 		ft_take_forks(philo);
 		ft_eat(philo);
 		ft_sleep(philo);
 		print_status("is thinking", philo);
 		usleep(50);
 	}
+	sem_post(philo->data->is_running_sem);
 	pthread_join(hunger, NULL); // check error
 	pthread_join(others, NULL); // check error
-	free_data(philo->data);
+	close_semaphores(philo->data);
+	free(philo->data);
 	free(philo);
 	exit(EXIT_SUCCESS);
 }
@@ -74,11 +80,6 @@ int	launch_processes(t_data *data)
 		pthread_join(ate_enough, NULL);
 	}
 	free(pids);
-	sem_close(data->forks);
-	sem_unlink("forks");
-	sem_close(data->overall_running);
-	sem_unlink("overall_running");
-	sem_close(data->ate_enough);
-	sem_unlink("ate_enough");
+	close_semaphores(data);
 	return (0);
 }

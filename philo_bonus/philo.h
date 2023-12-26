@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:50:11 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/24 01:21:55 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/25 11:50:43 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ typedef struct s_data
 	sem_t			*overall_running;
 	sem_t			*ate_enough;
 	sem_t			*forks;
+	sem_t			*is_running_sem; // rename
+	sem_t			*is_eating;
+	sem_t			*is_printing;
 }		t_data;
 
 typedef struct s_philo
@@ -55,7 +58,7 @@ void		ft_sleep(t_philo *philo);
 int			launch_processes(t_data *data);
 void		init_philo(t_philo *philo, int id, t_data *data);
 void		init_data(t_data *data, int ac, char **av);
-void		free_data(t_data *data);
+void		close_semaphores(t_data *data);
 void		free_philo(t_philo *philo);
 int			check_errors(int ac, char **av);
 
@@ -66,8 +69,9 @@ void		*check_ate_enough(void *arg);
 char		*ft_strchr(const char *s, int c);
 void		ft_putstr_fd(char *s, int fd);
 int			ft_atoi(const char *nptr);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
 
-void		ft_wait(long long time, int *is_running);
+void		ft_wait(long long time, int *is_running, sem_t *sem);
 long long	get_time(void);
 long long	get_time_since(long long start_time);
 

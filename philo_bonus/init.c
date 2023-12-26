@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:39:40 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/24 01:23:37 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/24 19:09:15 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,23 @@ void	init_data(t_data *data, int ac, char **av)
 		data->times_must_eat = -1;
 	gettimeofday(&time, NULL);
 	sem_unlink("forks");
-	data->forks = sem_open("forks", O_CREAT, S_IRUSR | S_IWUSR, \
-							data->number_of_philo);
+	sem_unlink("ate_enough");
 	sem_unlink("overall_running");
+	sem_unlink("is_running_sem");
+	sem_unlink("is_eating");
+	sem_unlink("is_printing");
+	data->forks = sem_open("forks", O_CREAT, \
+							S_IRUSR | S_IWUSR, data->number_of_philo);
 	data->overall_running = sem_open("overall_running", O_CREAT, \
 							S_IRUSR | S_IWUSR, 0);
-	sem_unlink("ate_enough");
 	data->ate_enough = sem_open("ate_enough", O_CREAT, \
 							S_IRUSR | S_IWUSR, 0);
+	data->is_running_sem = sem_open("is_running_sem", O_CREAT, \
+							S_IRUSR | S_IWUSR, 1);
+	data->is_eating = sem_open("is_eating", O_CREAT, \
+							S_IRUSR | S_IWUSR, 1);
+	data->is_printing = sem_open("is_printing", O_CREAT, \
+							S_IRUSR | S_IWUSR, 1);
 	data->start_time = time.tv_sec * 1000 + time.tv_usec / 1000;
 }
 
@@ -46,12 +55,14 @@ void	init_philo(t_philo *philo, int id, t_data *data)
 	philo->is_running = 1;
 }
 
-void	free_data(t_data *data)
+void	close_semaphores(t_data *data)
 {
 	sem_close(data->overall_running);
 	sem_close(data->ate_enough);
 	sem_close(data->forks);
-	free(data);
+	sem_close(data->is_running_sem);
+	sem_close(data->is_eating);
+	sem_close(data->is_printing);
 }
 
 void	free_philo(t_philo *philo)
