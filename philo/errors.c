@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 01:55:04 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/11 21:54:34 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/14 13:08:20 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ static int	is_all_digit(char *str)
 	return (1);
 }
 
+/*
+ *	Basic philosophers error checking.
+*/
 int	check_errors(int ac, char **av)
 {
 	int	i;

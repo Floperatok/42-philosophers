@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:39:40 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/14 18:36:01 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/14 13:25:28 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*
+ *	Format the user arguments and assign them in data.
+*/
 void	get_infos(t_data *data, int ac, char **av)
 {
 	struct timeval	time;
@@ -28,6 +31,9 @@ void	get_infos(t_data *data, int ac, char **av)
 	data->start_time = time.tv_sec * 1000 + time.tv_usec / 1000;
 }
 
+/*
+ *	Create all the mutexes, assign them in data.
+*/
 void	init_mutexes(t_data *data)
 {
 	int	i;
@@ -43,6 +49,9 @@ void	init_mutexes(t_data *data)
 	return ;
 }
 
+/*
+ *	Init the values for a philo.
+*/
 void	init_philo(t_philo *philo, int id, t_data *data)
 {
 	philo->data = data;

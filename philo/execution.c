@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 17:56:46 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/22 15:59:43 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/14 13:22:37 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*
+ *	Wait for the threads to end correctly, then destroy them.
+*/
 static int	end_threads(t_philo *philos, int number_of_philos)
 {
 	int	i;
@@ -31,6 +34,9 @@ static int	end_threads(t_philo *philos, int number_of_philos)
 	return (0);
 }
 
+/*
+ *	Set data->is_running to 0.
+*/
 static void	philos_eat_enough(t_data *data)
 {
 	pthread_mutex_lock(&(data->is_running_mutex));
@@ -38,6 +44,10 @@ static void	philos_eat_enough(t_data *data)
 	pthread_mutex_unlock(&(data->is_running_mutex));
 }
 
+/*
+ *	Continually checks if a philo died or if the philos all ate enough.
+ *	Set data->is_running to 0 if so.
+*/
 static void	wait_the_end(t_philo *philos, t_data *data)
 {
 	int	i;
@@ -67,6 +77,11 @@ static void	wait_the_end(t_philo *philos, t_data *data)
 	}
 }
 
+/*
+ *	Threads routine. Makes philo start with an even ID a bit late.
+ *	Makes philo take forks, eat, sleep then think and repeat while 
+ *	the program is running.
+*/
 static void	*routine(void *arg)
 {
 	int		left_fork;
@@ -96,6 +111,10 @@ static void	*routine(void *arg)
 	return (NULL);
 }
 
+/*
+ *	Creates the threads, init the philo values and launch the end checking 
+ *	function.
+*/
 int	launch_threads(t_data *data)
 {
 	int		i;

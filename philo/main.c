@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:13:44 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/16 00:37:14 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/14 13:26:37 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*
+ *	Only one philo routine (special case).
+*/
 void	*one_philo_thread(void *arg)
 {
 	t_data	*data;
@@ -25,6 +28,9 @@ void	*one_philo_thread(void *arg)
 	return (NULL);
 }
 
+/*
+ *	Only one philo creation (special case).
+*/
 void	one_philo(t_data *data)
 {
 	pthread_t	philo;

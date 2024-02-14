@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 01:35:59 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/16 00:37:07 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/14 13:36:24 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*
+ *	Destroy all the mutexes.
+*/
 void	destroy_mutexes(t_data *data)
 {
 	while (--data->number_of_philo >= 0)

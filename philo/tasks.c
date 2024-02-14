@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   tasks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:35:06 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/14 20:55:02 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/14 13:36:04 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*
+ *	Prints the given status of the given philo.
+*/
 void	print_status(char *status, t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->data->is_running_mutex));
@@ -25,6 +28,10 @@ void	print_status(char *status, t_philo *philo)
 	pthread_mutex_unlock(&(philo->data->is_running_mutex));
 }
 
+/*
+ *	The given philo waits for taking his forks.
+ *	Then take those once available, and prints the status.
+*/
 void	ft_take_forks(t_philo *philo, int left_fork, int right_fork)
 {
 	if (philo->id % 2 == 1)
@@ -43,6 +50,9 @@ void	ft_take_forks(t_philo *philo, int left_fork, int right_fork)
 	}
 }
 
+/*
+ *	The given philo eats, prints the status and wait time_to_eat millisecond.
+*/
 void	ft_eat(t_philo *philo)
 {
 	print_status("is eating", philo);
@@ -56,6 +66,10 @@ void	ft_eat(t_philo *philo)
 			&(philo->data->is_running_mutex));
 }
 
+/*
+ *	The given philo sleeps, prints the status and wait 
+ *	time_to_sleep millisecond.
+*/
 void	ft_sleep(t_philo *philo, int left_fork_id, int right_fork_id)
 {
 	print_status("is sleeping", philo);
@@ -65,6 +79,10 @@ void	ft_sleep(t_philo *philo, int left_fork_id, int right_fork_id)
 			&(philo->data->is_running_mutex));
 }
 
+/*
+ *	If the philo died of starvation, set data->is_running to 0, 
+ *	prints the status. Then unlocks its forks.
+*/
 void	ft_died(t_data *data, t_philo *philo)
 {
 	pthread_mutex_lock(&(data->is_running_mutex));
