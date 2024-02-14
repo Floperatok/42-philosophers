@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:13:44 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/26 19:49:37 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/14 15:00:15 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*
+ *	Only one philo routine (special case).
+*/
 void	one_philo_process(t_data *data)
 {
 	printf("0\t1 has taken a fork\n");
@@ -22,6 +25,9 @@ void	one_philo_process(t_data *data)
 	exit(EXIT_SUCCESS);
 }
 
+/*
+ *	Only one philo creation (special case).
+*/
 void	one_philo(t_data *data)
 {
 	int	pid;

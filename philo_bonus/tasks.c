@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   tasks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:35:06 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/26 18:10:59 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/14 15:02:07 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*
+ *	Prints the given status of the given philo.
+*/
 void	print_status(char *status, t_philo *philo)
 {
 	sem_wait(philo->data->is_running_sem);
@@ -27,6 +30,10 @@ void	print_status(char *status, t_philo *philo)
 	sem_post(philo->data->is_running_sem);
 }
 
+/*
+ *	The given philo waits for taking his forks.
+ *	Then take those once available, and prints the status.
+*/
 void	ft_take_forks(t_philo *philo)
 {
 	sem_wait(philo->data->forks);
@@ -35,6 +42,9 @@ void	ft_take_forks(t_philo *philo)
 	print_status("has taken a fork", philo);
 }
 
+/*
+ *	The given philo eats, prints the status and wait time_to_eat millisecond.
+*/
 void	ft_eat(t_philo *philo)
 {
 	sem_wait(philo->data->is_eating);
@@ -49,6 +59,10 @@ void	ft_eat(t_philo *philo)
 			philo->data->is_running_sem);
 }
 
+/*
+ *	The given philo sleeps, prints the status and wait 
+ *	time_to_sleep millisecond.
+*/
 void	ft_sleep(t_philo *philo)
 {
 	print_status("is sleeping", philo);
@@ -58,6 +72,9 @@ void	ft_sleep(t_philo *philo)
 			philo->data->is_running_sem);
 }
 
+/*
+ *	Run all the tasks.
+*/
 void	tasks(t_philo *philo)
 {
 	ft_take_forks(philo);

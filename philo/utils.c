@@ -6,14 +6,14 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 01:35:59 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/14 13:36:24 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/14 14:37:19 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 /*
- *	Destroy all the mutexes.
+ *	Destroy all mutexes.
 */
 void	destroy_mutexes(t_data *data)
 {

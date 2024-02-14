@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:39:40 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/26 15:22:28 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/14 14:59:47 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*
+ *	Create all the semaphores, assign them in data.
+*/
 void	init_semaphores(t_data *data)
 {
 	sem_unlink("forks");
@@ -34,6 +37,9 @@ void	init_semaphores(t_data *data)
 							S_IRUSR | S_IWUSR, 1);
 }
 
+/*
+ *	Format the user arguments and assign them in data.
+*/
 void	init_data(t_data *data, int ac, char **av)
 {
 	struct timeval	time;
@@ -51,6 +57,9 @@ void	init_data(t_data *data, int ac, char **av)
 	data->start_time = time.tv_sec * 1000 + time.tv_usec / 1000;
 }
 
+/*
+ *	Init the values for a philo.
+*/
 void	init_philo(t_philo *philo, int id, t_data *data)
 {
 	philo->data = data;
@@ -60,6 +69,9 @@ void	init_philo(t_philo *philo, int id, t_data *data)
 	philo->is_running = 1;
 }
 
+/*
+ *	Closes all semaphores.
+*/
 void	close_semaphores(t_data *data)
 {
 	sem_close(data->overall_running);
@@ -68,9 +80,4 @@ void	close_semaphores(t_data *data)
 	sem_close(data->is_running_sem);
 	sem_close(data->is_eating);
 	sem_close(data->is_printing);
-}
-
-void	free_philo(t_philo *philo)
-{
-	free(philo);
 }

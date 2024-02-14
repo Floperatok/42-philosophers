@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 22:50:11 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/26 15:47:46 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/14 14:59:46 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void		tasks(t_philo *philo);
 int			launch_processes(t_data *data);
 void		init_philo(t_philo *philo, int id, t_data *data);
 void		init_data(t_data *data, int ac, char **av);
-void		free_philo(t_philo *philo);
 void		close_semaphores(t_data *data);
 
 void		*check_hunger(void *arg);

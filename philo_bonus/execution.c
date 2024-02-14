@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 17:56:46 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/26 19:43:20 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/14 14:57:21 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*
+ *	Process routine. Makes philo start with an even ID a bit late.
+ *	Makes philo take forks, eat, sleep then think and repeat while 
+ *	the program is running.
+*/
 static void	routine(t_philo	*philo)
 {
 	pthread_t	hunger;
@@ -39,6 +44,10 @@ static void	routine(t_philo	*philo)
 	exit(EXIT_SUCCESS);
 }
 
+/*
+ *	Continually checks if a philo died or if the philos all ate enough.
+ *	Set data->is_running to 0 if so.
+*/
 int	wait_processes(t_data *data, int *pids, pthread_t ate_enough)
 {
 	int	i;
@@ -57,6 +66,10 @@ int	wait_processes(t_data *data, int *pids, pthread_t ate_enough)
 	return (0);
 }
 
+/*
+ *	Creates the processes, init the philo values and launch the end checking 
+ *	function.
+*/
 int	launch_processes(t_data *data)
 {
 	int			i;

@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   end_management.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 16:39:32 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/25 11:35:07 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/14 14:51:55 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*
+ *	Continuously checks if the philo dies of starvation. Sets philo->is_running
+ *	to 0 and unlock data->overall_running if he does.
+*/
 void	*check_hunger(void *arg)
 {
 	t_philo	*philo;
@@ -39,6 +43,10 @@ void	*check_hunger(void *arg)
 	return (NULL);
 }
 
+/*
+ *	Waits for data->overall_running to unlock, sets philo->is_running to 0
+ *	when it does.
+*/
 void	*check_others(void *arg)
 {
 	t_philo	*philo;
@@ -52,6 +60,10 @@ void	*check_others(void *arg)
 	return (NULL);
 }
 
+/*
+ *	Wait until all the philos have eaten enough, then unlock 
+ *	data->overall_running.
+*/
 void	*check_ate_enough(void *arg)
 {
 	int		counter;

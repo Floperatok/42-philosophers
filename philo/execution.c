@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 17:56:46 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/14 13:22:37 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/14 14:53:50 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
-		usleep(philo->data->time_to_eat * 500);
+		usleep(15000);
 	left_fork = philo->id - 1 - 1;
 	right_fork = philo->id - 1;
 	if (left_fork < 0)

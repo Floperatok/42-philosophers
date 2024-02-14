@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 18:23:01 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/26 19:48:32 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/14 15:03:28 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*
+ *	Wait the given amount of time in millisecond. Stops if is_running becomes 0. 
+*/
 void	ft_wait(long long time, int *is_running, sem_t *sem)
 {
 	long long	start_time;
