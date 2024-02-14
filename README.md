@@ -30,7 +30,7 @@ You can now execute the program with the necessary arguments:
 ```
 *Note: if you choose the bonus folder, the program name is `philo_bonus`*\
 The first argument is the number of philos.\
-The second arguement is the time it takes for a philo to starve to death.\
-The third arguement is the time it takes for a philo to eat.\
-The fourth arguement is the time it takes for a philo to sleep.\
+The second arguement is the time in millisecond it takes for a philo to starve to death.\
+The third arguement is the time in millisecond it takes for a philo to eat.\
+The fourth arguement is the time in millisecond it takes for a philo to sleep.\
 It is possible to enter a fifth argument which is the number of times the philo must eat before the program stops, the program does not stop by default.
